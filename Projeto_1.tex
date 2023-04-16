@@ -1,0 +1,1371 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Relatório de Relatórios de Transferência de Calor II
+% Relatório desenvolvido Por Thiago Barros
+% Departamento de Engenharia Mecânica do IFPE
+% Bacharelado em Engenharia Mecânica 
+% Relatório desenvolvido em LaTeX 3.14159265-2.6-1.40.21
+% Sistema Operacional GNU\Linux Pop OS 21.04
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Documento Tipo Artigo
+\documentclass[a4paper,12pt,oneside]{article}
+% Fonte de Entrada
+\usepackage[utf8]{inputenc}
+% Margens do Documento
+\usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm,]{geometry}
+% Palavras em Portugues
+\usepackage[brazil]{babel}
+% Entrada de Imagens
+\usepackage{graphicx}
+% Matemática
+\usepackage[]{amsmath}
+\usepackage[]{amsfonts}
+\usepackage[]{amssymb}
+\usepackage[]{mathtools}
+%Espaçamento de 1.5
+\renewcommand{\baselinestretch}{1.5}
+%Identação de Primeira Linha de 1.5
+\usepackage{indentfirst}
+%Texto Justificado Igualmente
+\usepackage{ragged2e}
+%Inserir Legendas nas FIguras
+\usepackage{caption}
+%Inserir Pdf Externos
+\usepackage{pdfpages}
+%Times New Roman
+\usepackage{mathptmx}
+\usepackage{acronym}
+\usepackage{tabularx}
+\usepackage{array}
+%Paginação a Direita e Inferior
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}%
+\fancyfoot[R]{\thepage}
+\usepackage{enumerate} %Numerar listas
+\usepackage[skins,theorems]{tcolorbox} % Criar Caixas de Texto
+\usepackage{cancel}
+\usepackage{pdfpages}
+
+\usepackage{listings}
+\usepackage{color}
+
+
+
+\begin{document}
+
+
+	
+\begin{center}
+
+	\large{
+		INSTITUTO FEDERAL DE CIÊNCIA E TECNOLOGIA DO ESTADO DE PERNAMBUCO CAMPUS RECIFE\\ 
+		\vspace{0.2cm}
+		DEPARTAMENTO ACADÊMICO DE PROCESSOS E CONTROLES INDUSTRIAIS\\
+		\vspace{0.2cm} 
+		CURSO SUPERIOR DE BACHARELADO EM ENGENHARIA MECÂNICA\\
+		\vspace{0.2cm} 
+		DISCIPLINA DE TRANSFERÊNCIA DE CALOR II\\ 
+		\vspace{1.3cm}
+		\includegraphics[width=8cm,height=3cm]{logo.png}\\
+		\vspace{1cm}
+		FÁBIO HENRIQUE PALMEIRA SILVA\\
+		EDILSON EUGÊNIO DA SILVA\\
+		JOSÉ THIAGO DE LIMA BARROS \\
+		
+		\vspace{1.7cm}
+		\textbf{PROJETO DE TROCADOR DE CALOR DE PLACAS INTERMEDIÁRIAS - RELATÓRIO FINAL
+		}\\
+		\vspace{3.5cm}
+		RECIFE\\
+		\vspace{0.2cm}
+		2021.2	
+	}
+
+\end{center}
+\thispagestyle{empty}
+
+\pagebreak
+\clearpage
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+
+\large{
+	
+	FÁBIO HENRIQUE PALMEIRA SILVA\\
+	EDILSON EUGÊNIO DA SILVA\\
+	JOSÉ THIAGO DE LIMA BARROS\\
+
+\vspace{5.6cm}	
+\textbf{PROJETO DE TROCADOR DE CALOR DE PLACAS INTERMEDIÁRIAS - RELATÓRIO FINAL}}
+
+\end{center}
+
+\vspace{2.5cm}
+
+\hfill\begin{minipage}{0.5\linewidth}\large
+{Relatório de desenvolvimento de análise de Trocador de Calor de Placas Intermediárias desenvolvido por Fábio Henrique Palmeira Silva, Edilson Eugênio da Silva e José Thiago de Lima Barros.} 
+\end{minipage}
+\vspace{0.9cm}
+\begin{flushright}
+\large \textbf{	Orientadores: Prof. Álvaro Ochoa e Prof. Ednaldo Evangelista}
+\end{flushright}
+
+\begin{center}
+\large{
+\vspace{2.9cm}
+RECIFE\\
+\vspace{0.2cm}
+2021.2	
+}
+\end{center}
+\thispagestyle{empty}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagebreak
+\clearpage
+\newpage	
+
+
+\begin{center}
+	\renewcommand{\listfigurename}{\large LISTA DE ILUSTRAÇÕES}
+	\listoffigures
+	\thispagestyle{empty}
+\end{center}
+
+
+
+\pagebreak
+\clearpage
+\newpage	
+
+\begin{center}
+	\renewcommand{\listtablename}{\large LISTA DE TABELAS}
+	\listoftables
+	\thispagestyle{empty}
+\end{center}
+
+\pagebreak
+\clearpage
+\newpage
+
+
+\large \centering \textbf {LISTA DE SÍMBOLOS }\\
+\vspace{0.5cm}
+\begin{flushleft}
+	\begin{tabularx}{12cm}{X X l}
+	
+		$\dot{Q}$ &  &  \itshape Fluxo de Calor\\
+		$K$ &  &  \itshape Condutividade Térmica\\
+		$C_{p}$ &  &  \itshape Calor Específico\\
+		$\dot{m}$ &  &  \itshape Vazão mássica\\
+		$\epsilon$ &  &  \itshape Efetividade
+\end{tabularx}
+\end{flushleft}
+\thispagestyle{empty}
+
+
+\pagebreak
+\clearpage
+\newpage
+
+
+\begin{center}
+	
+	\renewcommand{\contentsname}{\large SUMÁRIO}
+	
+	 \tableofcontents
+\end{center}
+\thispagestyle{empty}
+
+
+\pagebreak
+\clearpage
+\newpage
+		
+		
+			
+\begin{flushright}
+\justify
+	
+	
+	\section{\large INTRODUÇÃO}
+	\vspace{0.5cm}
+	
+	O estudo dos fenômenos térmicos são de grande importância para os Engenheiros. Com a crescente demanda de energia das sociedades modernas, redução de poluentes, melhoria dos processos de refrigeração atrelada ao consumo de alimentos, a necessidade de se desenvolver mecanismos para se suprir tais necessidades passam diretamente pelo conhecimento prático e teórico deste campo da engenharia/física.
+	
+	Acelerar projetos de engenharia nem sempre é tão simples de se fazer, visto que problemas desde campo são complexos e demandam tempo para serem resolvidos. Uma das vantagens que se tem atualmente é a capacidade de se utilizar ferramentas computacionais para a resolução de problemas. Segundo Maliska (1995), o uso de técnicas numéricas são, atualmente, parte do processo de desenvolvimento interno. Problemas de transferência de calor e outras ciências térmicas passam, em grandes projetos, pela fase da simulação.
+	
+	No estudo da transferência de calor, os mecanismos da qual se tem esse processo: condução, convecção e radiação, são o foco. Entender esses fenômenos é a base para o desenvolvimento de equipamentos como sistemas de ventilação, caldeiras, entre outros etc. O presente trabalho tem como objetivo determinar algumas características a respeito do trocador de calor de placas intermediárias.
+	
+	\pagebreak
+	\clearpage
+	\newpage
+	
+	
+\section{\large FUNDAMENTAÇÃO TEÓRICA}
+\vspace{0.5cm}
+
+Segundo Çengel (2002), trocadores de calor são dispositivos que tem como objetivo facilitar a troca de calor entre fluidos. Esses que se encontram em temperaturas diferentes. Uma das características dos trocadores de calor é que essa troca acontece sem que os fluidos se misturem. Existem uma infinidade de aplicações para esse dispositivo como em sistemas de arrefecimento de veículos, estações térmicas como usinas termoelétricas e sistemas de refrigeração de ambientes.
+
+Geralmente, a troca de calor nesses dispositivos acontece utilizando o mecanismo de convecção, através de uma parede que separa os fluidos. Para se trabalhar com trocadores de calor é importante que se determine o coeficiente global de transferência de calor, que representa a contribuição de todos os termos que afetam a transferência.
+
+Existem uma grande variedade desses dispositivos, com características diferentes. Essa grande variedade surge devido a necessidade de se igualar os requisitos de transferência de calor em diversos projetos, o que gerou diferentes configurações de trocadores de calor. O modelo mais simples de trocador é o de \textbf{tubo duplo} onde um fluido em uma temperatura escoa por uma tubulação do um diâmetro pequeno enquanto outro fluido com temperatura maior ou menor atravessa uma região anelar entre o tubo menor e outro tubo maior. 
+
+O escoamento dos fluidos podem ser \textbf{paralelo} quando os fluidos quente e frio entra no trocador de calor avançam na mesma direção e entram na mesma velocidade, equanto no escoamento \textbf{contracorrente}, os fluidos de diferentes temperaturas entram em lados opostos e escoam em direções opostas.
+
+\pagebreak
+\clearpage
+\newpage
+
+
+\begin{figure}[h]
+	\centering
+	\caption{FLUXO PARALELO}
+	\vspace{0.5cm}
+	\includegraphics[width=6cm,height=4cm]{figura1.png}
+	\vspace{0.5cm}\\
+	Fonte: Yunus Çengel - Transferência e Calor e Massa 3$^\circ$ edição
+\end{figure}
+\vspace{0.5cm}
+
+\begin{figure}[h]
+	\centering
+	\caption{FLUXO CONTRACORRENTE}
+	\vspace{0.5cm}
+	\includegraphics[width=6cm,height=4cm]{figura2.png}
+	\vspace{0.5cm}\\
+	Fonte: Yunus Çengel - Transferência e Calor e Massa 3$^\circ$ edição
+\end{figure}
+\vspace{0.5cm}
+
+Em trocadores de calor compactos, normalmente os dois fluidos circulam perpendiculares uns aos outros, e essa configuração de escoamento é chamada de \textbf{escoamento cruzado}, que ainda é classificado em escoamento sem mistura e com mistura.
+
+\pagebreak
+\clearpage
+\newpage
+
+\subsection{\large COEFICIENTE GLOBAL DE TRANSFERÊNCIA DE CALOR}
+\vspace{0.5cm}
+
+No projeto de um trocador de calor, um dos parâmetros a serem considerados é o coeficiente global de transferência de calor $U$. Esse coeficiente, tem como objetivo, determinar o quão bem o calor atravessa as resistências térmicas no dispositivo. Toma-se o exemplo do trocador de calor mais simples que é o de tubo duplo. O fluxo de calor se dará da fonte mais quente para a fonte mais fria onde independe do sentido do escoamento. Considerando o fluxo, o calor passará pelas paredes por condução e pelos fluidos por convecção. \\
+
+\begin{figure}[h]
+	\centering
+	\caption{RESISTÊNCIA TÉRMICA}
+	\vspace{0.5cm}
+	\includegraphics[width=8cm,height=12cm]{figura3.png}
+	\vspace{0.5cm}\\
+	Fonte: Yunus Çengel - Transferência e Calor e Massa 3$^\circ$ edição
+\end{figure}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+
+Aplicando o conceito de resistência térmica, temos que a resistência total será dada por:\\
+
+\begin{equation}\label{eq1}
+R_{total} = \sum_{i = 1}^{n}R_{i}  = R_{1} + R_{2} + R_{3}\dots R_{n}
+\end{equation}
+\vspace{0.5cm}
+
+Com base na esquematização da figura 3, temos que calcular a resistência térmica total, que será dada pelas resistências $R_{i}$, $R_{wall}$ e $R_{o}$.\\
+
+\begin{equation}\label{eq2}
+R_{total} = R_{i} + R_{parede} + R_{o}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq3}
+R_{total} = \frac{1}{h_{i} \times A_{i}} + R_{parede} + \frac{1}{h_{o} \times A_{o}}
+\end{equation}
+\vspace{0.5cm}
+
+Para o trocador de calor de tubo duplo, temos que a resistência térmica na parede será de, segundo Çengel (2002):\\
+
+\begin{equation}\label{eq4}
+R_{parede} = \frac{ln \frac{D_{o}}{D_{i}}}{2 \times \pi \times k}
+\end{equation}
+\vspace{0.5cm}
+
+Portanto a resistência térmica total será de;\\
+
+\begin{equation}\label{eq5}
+R_{total} = \frac{1}{h_{i} \times A_{i}} + \frac{ln \frac{D_{o}}{D_{i}}}{2 \times \pi \times k} + \frac{1}{h_{o} \times A_{o}}
+\end{equation}
+\vspace{0.5cm}
+
+Uma vez definida a resistência térmica, é possível calcular a taxa de calor transferida pelos fluidos da seguinte forma:\\
+
+\begin{equation}\label{eq6}
+\dot{Q} = \frac{\Delta T}{R} = U \times A \times \Delta T = U_{i} \times A_{i} \times \Delta T_{o} = U_{o} \times A_{o} \times \Delta T_{o}
+\end{equation}
+\vspace{0.5cm}
+
+Sendo o U o coeficiente global de transferência de calor cuja a unidade é $W/m^2\times ^\circ C$, mesma unidade do coeficiente de convecção h. Como têm-se na esquematização duas superfícies, temos dois valores de resistências diferentes e logo dois coeficientes globais de resistência diferentes para cada superfície. Anulando a variação de temperatura pode-se reduzir a equação \ref{eq6} e unifica-la com a equação \ref{eq5} onde temos que:\\
+
+
+\begin{equation}\label{eq7}
+\frac{1}{h_{i} \times A_{i}} + \frac{ln \frac{D_{o}}{D_{i}}}{2 \times \pi \times k} + \frac{1}{h_{o} \times A_{o}} = \frac{1}{U_{i} \times A_{i}} = \frac{1}{U_{o} \times A_{o}}
+\end{equation}
+\vspace{0.5cm}
+
+Em alguns casos onde a espessura do tubo é muito pequena e a condutividade térmica do material do trocador de calor é elevada, que é o que se tem no mercado, a resistência térmica das paredes é aproximadamente nula, e a área superficial é praticamente a mesma. Considerando assim, a equação \ref{eq7} pode ser reduzida para a seguinte relação:
+\pagebreak
+\clearpage
+\newpage
+
+
+\begin{equation}\label{eq8}
+\frac{1}{U} = \frac{1}{h_i} + \frac{1}{h_o}
+\end{equation}
+\vspace{0.5cm}
+
+O que, no fim, o coeficiente global de transmissão de calor poderá ser determinado por:\\
+
+\begin{equation}\label{eq9}
+ 	\tcbhighmath[boxrule=2pt,arc=1pt,colback=blue!10!white,colframe=black,
+ drop fuzzy shadow=red]{U = \frac{1}{\frac{1}{h_i} + \frac{1}{h_o}}}
+\end{equation}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+
+\subsection{\large MÉTODO DA DIFERENÇA MÉDIA DE TEMPERATURA LOGARÍTMICA E EFETIVIDADE DO TROCADOR DE CALOR}
+\vspace{0.5cm}
+ 
+Em um projeto de um trocador de calor, o objetivo é determinar a área superficial necessária para se transferir o calor em uma taxa que se baseie em uma relação, desde que se conheça as vazões e as temperaturas dos fluidos. Um dos facilitadores dessa determinação é o coeficiente de transferência de calor global visto anteriormente (U).\\
+
+\begin{equation}\label{eq10}
+	q = U \times A_{superficial} \times \overline{\Delta T}
+\end{equation}
+\vspace{0.5cm}
+
+O delta T é a diferença média efetiva da temperatura de todo trocador de calor. U ,como visto anteriormente, pode ser definido com base nas resistências térmicas das paredes do trocador de calor. Segundo Simões, as resistências podem ser definidas com base na nos tipos de parede\\
+
+\begin{equation}\label{eq11}
+	U_{Paredes\,\,\,Planas} = \frac{1}{\frac{1}{q_{i}} + \frac{L}{k} + \frac{1}{q_{0}}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq12}
+	U_{0} = \frac{1}{{\frac{r_{0}}{r_{i} \times q_{i}}} + \left[ \frac{r_{0} \times ln(\frac{r_{0}}{r_{i}})}{k}\right] + \frac{1}{q_{0}} } , q = U_{0} \times A_{0} \times \overline{\Delta T} 
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq13}
+	U_{i} = \frac{1}{\frac{1}{q_{i}} + \left[ \frac{r_{i} \times ln(\frac{r_{i}}{r_{0}})}{k}\right] + \frac{r_{i}}{r_{0} \times q_{0}} }, q = U_{i} \times A_{i} \times \overline{\Delta T}
+\end{equation}
+\vspace{0.5cm}
+
+As equações \ref{eq12} e \ref{eq13} servem para calcular o coeficiente global nas parede interna e na parede externa do trocador de calor com parede cilíndrica.
+
+A fim de desenvolver uma relação para a diferença de temperatura média equivalente entre os dois fluidos, parte-se do escoamento paralelo de tubo duplo. No trocador, a diferença de temperatura entre os fluidos frio e quente é grande na entrada e vai diminuindo conforme se aproxima da saída. Pela troca de calor, a temperatura do fluido frio aumenta ao logo do trocador e a do fluido quente diminui. A temperatura do fluido frio nunca poderá exceder a temperatura do fluido quente, e independe do comprimento total do equipamento.
+\pagebreak
+\clearpage
+\newpage
+
+\begin{figure}[h]
+	
+	\caption{DIFERENÇAS DE TEMPERATURA ENTRE O FLUIDO FRIO E QUENTE}
+	\vspace{0.5cm}
+\flushright{	\includegraphics[width=12cm,height=12cm]{figura5.png}}
+	\vspace{0.5cm}\\
+\centering{	Fonte: Yunus Çengel - Transferência e Calor e Massa 3$^\circ$ edição}
+\end{figure}
+\vspace{0.5cm}
+
+Considerando que a superfície externa equipamento esteja isolada, de forma que qualquer transferência de calor ocorra apenas entre os dois fluidos e desprezando mudanças de energia, um balanço  de energia em cada um fluido em uma seção diferencial do trocador de calor pode ser expresso como:\\
+
+\begin{equation}\label{eq14}
+ \delta \dot{Q}_{frio} - \delta \dot{Q}_{quente}  = 0
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq15}
+\delta \dot{Q}_{quente} = -\dot{m}_{quente} \times C_{pquente} \times dT_{q}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq16}
+	\delta \dot{Q}_{frio} = \dot{m}_{frio} \times C_{pfrio} \times dT_{f}
+\end{equation}
+\vspace{0.5cm}
+
+A perda de calor do fluido quente, em qualquer seção de um trocador de calor, é igual à taxa de ganho de calor pelo fluido frio nessa seção. A mudança de temperatura do fluido quente é uma quantidade negativa e, por isso, um sinal negativo é acrescentado à Equação \ref{eq15} para tornar a taxa de transferência de calor uma quantidade positiva. Resolvendo as equações acima para , temos:\\
+
+\begin{equation}\label{eq17}
+dT_{q} = -  \frac{\delta \dot{Q}_{quente}}{\dot{m}_{quente} \times C_{pquente}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq18}
+dT_{f} = \frac{\delta \dot{Q}_{frio}}{\dot{m}_{frio} \times C_{pfrio}}
+\end{equation}
+\vspace{0.5cm}
+
+Fazendo a diferença das duas temperaturas fria e quente, temos que 
+
+\begin{equation}\label{eq19}
+dT_{q} - dT_{f} = d(T_{q} - T_{f})
+\end{equation}
+\vspace{0.5cm}
+
+A taxa de transferência de calor na seção diferencial do trocador de calor também pode ser expressa como:\\
+
+\begin{equation}\label{eq20}
+	\delta \dot{Q} = U \times (T_{q} - T_{q})dA_{s}
+\end{equation}
+\vspace{0.5cm}
+
+Reunindo as equações anteriores podemos encontrar a seguinte relação:\\
+
+\begin{equation}\label{eq21}
+	\frac{d(T_{q} - T_{f})}{T_{q} - T_{f}} = -\delta\dot{Q} \left(  \frac{1}{\dot{m}_{quente} \times c_{pquente}} + \frac{1}{\dot{m}_{frio} \times c_{pfrio}}  \right)  
+		\end{equation}
+		\vspace{0.5cm}
+
+O que também pode ser representado por:\\
+
+ \begin{equation}\label{eq22}
+ ln \left( \frac{T_{quente_saida} - T_{frio_saida}}{T_{quente_entrada} - T_{frio_saida}}     \right) =   -UA \left(  \frac{1}{\dot{m}_{quente} \times c_{pquente}} + \frac{1}{\dot{m}_{frio} \times c_{pfrio}}  \right)
+ \end{equation}
+ \vspace{0.5cm}
+ 
+Rearranjando a equação anterior, em função das vazões mássicas, podemos determinar que que a diferença de temperatura média logarítmica. Essa é a forma mais adequada para se trabalhar com o trocador de calor uma vez conhecidas as temperaturas das extremidades do dispositivo.\\
+
+ \begin{equation}\label{eq23}
+ 	\tcbhighmath[boxrule=2pt,arc=1pt,colback=blue!10!white,colframe=black,
+drop fuzzy shadow=red]{\Delta T_{ml} = \frac{\Delta T_{1} - \Delta T_{2}}{ln \frac{\Delta T_{1}}{\Delta T_{2}}}}
+\end{equation}
+\vspace{0.5cm}
+
+Caso alguma das temperaturas não seja conhecida, definir a temperatura média logarítmica será trabalhoso, o que necessitará de uma automatização por algoritmo. A análise feita pela DTML é mais indicado quando se quer determinar a dimensão do trocador de calor, para resultar em temperaturas de saída prescritas. Para esse método, a ideia é selecionar o trocador de calor. Segundo Çegel, existe um procedimento utilizando esse método de análise para selecionar o melhor trocador.\\
+
+\begin{enumerate}
+	\item Selecionar o tipo de trocador de calor adequado para a aplicação. 
+	\item Determinar qualquer temperatura de entrada ou saída desconhecida e a
+	taxa de transferência do calor usando um balanço de energia. 
+	\item Calcular a diferença de temperatura média logarítmica $\Delta T_{ml}$ e o fator de
+	correção F, se necessário.  
+	\item  Obter (selecionar ou calcular) o valor do coeficiente global de
+	transferência de calor U. 
+	\item Calcular a área de transferência de calor $A_{S}$
+\end{enumerate}
+\vspace{0.5cm}
+
+Quando temos um problema, onde se deseja, segundo Çengel, determinar o desempenho da transferência de calor de um determinado trocador de calor ou determinar se um trocador de calor disponível em que as temperaturas não conhecidas são as de saída, o outro método de análise mais ideal seria o da efetividade, ou método da efetividade NTU.\\
+
+ \begin{equation}\label{eq23}
+\epsilon \equiv \frac{Troca\,\,\,\,Real}{Troca\,\,\,\,Maxima\,\,\,\,Possivel} \equiv \frac{q_{real}}{q_{max}}
+\end{equation}
+\vspace{0.5cm}
+
+Segundo Simões, a máxima troca de calor possível é aquela que resultaria se um dos fluidos sofresse uma variação de temperatura igual à máxima diferença de temperatura possível. Cengel define a taxa real como sendo a resultante do balanço de energia da fonte fria e quente, como visto anteriormente. A efetividade de um trocador de calor depende da geometria do trocador de calor, assim como do arranjo do escoamento. Por isso, diferentes tipos de trocadores de calor têm diferentes relações para a efetividade.  
+\pagebreak
+\clearpage
+\newpage 
+
+\begin{figure}[h]
+	\centering
+	\caption{EFETIVIDADES DE TROCADORES DE CALOR}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=12cm]{figura6.png}
+	\vspace{0.5cm}\\
+	Fonte: Prof. Dr. José R Simões Moreira  - Processos de Transferência de Calor
+\end{figure}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+
+
+\subsection{\large TROCADORES DE PLACAS}
+\vspace{0.5cm}
+
+Um dos modelos de trocador de calor mais utilizados para aplicações industriais é o modelo de placas. Esse trocador de calor usa várias placas finas ligadas a um conjunto de tubulações com o objetivo de trocar calor entre dois fluidos. Uma das vantagens desse modelo de trocador de calor é a possibilidade de grandes áreas superficiais para troca.\\
+
+\begin{figure}[h]
+	\centering
+	\caption{MODELO EM CAD DE PLACAS INTERMEDIÁRIAS }
+	\vspace{0.5cm}
+	\includegraphics[width=9cm,height=9cm]{FIGURA7.jpeg}
+	\vspace{0.5cm}\\
+	Fonte: Fábio Henrique
+\end{figure}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+\section{\large METODOLOGIA}
+\vspace{0.5cm}
+
+Para a presente trabalho, em primeiro momento, têm-se como objetivo determinar o coeficiente global para o fluxo paralelo no trocador de calor de placas intermediárias de fluxo paralelo. Em segundo momento, têm-se como objetivo de analisar a efetividade do trocador de calor e como aumenta-la, partindo-se dos seguintes dados para o trocador de calor proposto. A terceira parte da análise do trocador de calor terá como objetivo indicar a existência de um outro trocador de calor capaz, com as mesmas condições impostas pelos dados de entrada, manter a efetividade calculada para o trocador de placas.\\
+
+\begin{table}[h]
+	\caption{Dados do Trocador de Calor de Placas Inter. Fluxo Paralelo}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c | c | c | c | c | c |}
+		\hline
+		Teste & $\dot{m}_{frio}$ & $\dot{m}_{quente}$&Tfria$\_$en& Tfria$\_$sai& Tquente$\_$en& Tquente$\_$sai& Área\\
+		\hline
+			1 & 0,0088 & 0,01895  & 20& 34& 43,5& 37&0,12\\
+		\hline
+			2 & 0,0075 & 0,04  & 21& 37& 42& 39& 0,12\\
+		\hline
+			3 & 0,0078 & 0,02427  & 22& 36& 41,5& 37& 0,12\\
+		\hline
+			4 & 0,009 & 0,0096  & 28& 36& 44& 36,5& 0,12\\
+		\hline
+			5 & 0,0092 & 0,02258  & 22,5& 36& 42,5& 37& 0,12\\
+		\hline
+			6 & 0,0082 & 0,02694  & 22,5& 34& 41,5& 38& 0,12\\
+		\hline
+			7 & 0,008 & 0,0464  & 22,5& 37& 40,5& 38& 0,12\\
+		\hline
+			8 & 0,0081 & 0,1575  & 20,5& 38& 39,9& 39& 0,12\\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Bancada Experimental
+	\vspace{1cm}
+\end{table}
+\pagebreak
+\clearpage
+\newpage
+Os fluidos frio e quente são ambos amônia com um cp de 3,8 [Kj/Kg K].
+
+
+Para determinar o coeficiente de transferência de calor global, pode-se partir da fórmula \ref{eq6}. Partindo do primeiro caso, percebe-se que é necessário a variação de temperatura, mas com base nos dados, existem quatro valores, com dados de entrada e saída da fonte fria e quente.\\
+
+\begin{equation}\label{eq24}
+\dot{Q} = \frac{\Delta T}{R} = U \times A \times \Delta T = U_{i} \times A_{i} \times \Delta T_{o} = U_{o} \times A_{o} \times \Delta T_{o}
+\end{equation}
+\vspace{0.5cm}
+
+Como teremos valores de coeficientes globais específicos para cada fonte, teremos que calcular separadamente cada valor de coeficiente.\\
+
+\begin{equation}\label{eq25}
+\dot{Q}_{frio} = U_{frio} \times A_{frio} \times \Delta T_{frio} 
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq27}
+\dot{Q}_{quente} = U_{quente} \times A_{quente} \times \Delta T_{quente} 
+\end{equation}
+\vspace{0.5cm}
+
+Da calorimetria, sabe-se que a troca de calor entre dois fluidos pode ser determinada pela fórmula de calor:\\
+
+\begin{equation}\label{eq28}
+\dot{Q} = \dot{m} \times C_{P} \times \Delta T
+\end{equation}
+\vspace{0.5cm}
+
+Relacionando a fórmula \ref{eq13} com a fórmula \ref{eq11} temos que:\\
+
+\begin{equation}\label{eq29}
+U \times A \times \Delta T = \dot{m} \times C_{P} \times \Delta T
+\end{equation}
+\vspace{0.5cm}
+
+A primeira ação a se fazer seria anular os deltas mas essa ação estaria errada. Çengel (2002) relata que em um trocador de calor, a diferença de temperatura dos fluidos quente e frio varia ao longo do trocador. Por isso, para calcular o coeficiente global, a temperatura média logarítmica é a ideal uma vez que ela leva em consideração esse fato, o que diminui o erro percentual de variação de temperatura. A temperatura média logarítmica é definida por:\\
+
+\begin{equation}\label{eq30}
+\Delta T_{ml} = \frac{\Delta T_{1} - \Delta T_{2}}{ln \frac{\Delta T_{1}}{\Delta T_{2}}}
+\end{equation}
+\vspace{0.5cm}
+
+$\Delta T_{1}$ e $\Delta T_{2}$ representam as diferenças de temperatura entre os dois fluidos em ambas as extremidades (entrada e saída) do trocador de calor, não fazendo, segundo o livro texto, diferença qual extremidade do trocador de calor é designada como a entrada e saída do trocador.\\
+
+\begin{equation}\label{eq31}
+\Delta T_{1} = T_{Quente\,\,\,\, de\,\,\,\, Entrada} - T_{Fria\,\,\,\, de\,\,\,\, Entrada} \,\,\,\,[Fluxo\,\,\,\, Paralelo]
+\end{equation}
+\vspace{0.1cm}
+\begin{equation}\label{eq32}
+\Delta T_{2} = T_{Quente\,\,\,\, de\,\,\,\, Saida} - T_{Fria\,\,\,\, de\,\,\,\, Saida} \,\,\,\, [Fluxo\,\,\,\, Paralelo]
+\end{equation}
+\vspace{0.1cm}
+\begin{equation}\label{eq33}
+\Delta T_{1} = T_{Quente\,\,\,\, de\,\,\,\, Entrada} - T_{Fria\,\,\,\, de\,\,\,\, Saida} \,\,\,\,[Fluxo\,\,\,\, Contracorrente]
+\end{equation}
+\vspace{0.1cm}
+\begin{equation}\label{eq34}
+\Delta T_{2} = T_{Quente\,\,\,\, de\,\,\,\, Saida} - T_{Quente\,\,\,\, de\,\,\,\, Entrada} \,\,\,\, [Fluxo\,\,\,\, Contracorrente]
+\end{equation}
+\vspace{0.1cm}
+
+
+Uma vez definido o método correto de calcular a temperatura para a equação \ref{eq6}, reorganizando o lado direita da equação \ref{eq14}, temos que:\\
+
+\begin{equation}\label{eq35}
+U \times A \times \Delta T = \dot{m} \times C_{P} \times \Delta T = U \times A \times \frac{\Delta T_{1} - \Delta T_{2}}{ln \frac{\Delta T_{1}}{\Delta T_{2}}}
+\end{equation}
+\vspace{0.5cm}
+
+
+Como cada região fria e quente terá seu próprio coeficiente global, temos que para cada região, o coeficiente global será dado por:\\
+
+\begin{equation}\label{eq36}
+U_{Quente} = \frac{\dot{Q}_{quente}}{A \times \Delta T_{ml}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq37}
+U_{Fria} = \frac{\dot{Q}_{Fria}}{A \times \Delta T_{ml}}
+\end{equation}
+\vspace{0.5cm}
+
+Onde o termo de calor será a equação \ref{eq13} que para cada termo a diferença de temperatura será a de entrada e saída:
+
+\begin{equation}\label{eq38}
+\dot{Q} = \dot{m} \times C_{P} \times (T_{Saida} - T_{Entrada})
+\end{equation}
+\vspace{0.5cm}
+
+Reunindo as equações \ref{eq23}, \ref{eq22}, \ref{eq21}, para os respectivos fluidos, chega-se a dedução final para o cálculo do coeficiente global:\\
+
+\begin{equation}\label{eq39}
+U_{quente} = \frac{\dot{m}_{quente} \times C_{P_{quente}} \times (T_{Saida\,\,\,\, quente} - T_{Entrada\,\,\,\, quente})}{A \times \Delta T_{ml}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq40}
+U_{frio} = \frac{\dot{m}_{frio} \times C_{P_{frio}} \times (T_{Saida\,\,\,\, frio} - T_{Entrada\,\,\,\, frio})}{A \times \Delta T_{ml}}
+\end{equation}
+\vspace{0.5cm}
+	
+	
+Com as fórmulas \ref{eq24}	\ref{eq25}, têm-se o que é necessário, juntamente com os dados da bancada, para se calcular os coeficientes globais do trocador de calor de placas intermediárias. Para facilitar. Com o auxilio do Software Engineering Equation Solver (EES), se desenvolveu um algoritmo para automatiza o cálculo dos coeficientes para todos os casos coletados.
+\pagebreak
+\clearpage
+\newpage
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=Python,
+	backgroundcolor=\color{white},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{red},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=12pt,                  
+	showspaces=false,                
+	showstringspaces=true,
+	showtabs=false,                  
+	tabsize=12,
+	frame=single
+}
+
+\lstset{style=mystyle}
+\begin{center}
+\normalsize{Algoritmo 1 - Código EES para obtenção dos Coeficientes Globais para um fluxo de escoamento Paralelo}
+\end{center}
+
+\begin{lstlisting}
+c_pC = 3,8
+c_pC = c_pH
+A_s = 0,12
+(D^2) = ((4*A_s)/pi)
+Q_dot_C = (m_dot_C*c_pC*(T_Cout - T_Cin))*convert(kJ/s;W)
+Q_dot_H = (m_dot_H*c_pH*(T_Hout - T_Hin))*convert(kJ/s;W)
+DELTAT_1 = (T_Hin - T_Cout)
+DELTAT_2 = (T_Hout - T_Cin)
+DELTAT_m = ((DELTAT_1- DELTAT_2)/ln(DELTAT_1/DELTAT_2))
+U_C = (Q_dot_C/(A_s*DELTAT_m))
+U_H = (Q_dot_H/(A_s*DELTAT_m))
+\end{lstlisting}
+\vspace{0.5cm}
+
+
+Uma vez determinado os dados anteriores, pode-se partir para a análise da efetividade do trocador de calor. Com base no modelo de trocador de calor, a efetividade a ser determinada necessitará das capacidades térmicas de escoamento. Essa parte será facilitada uma vez que o trocador de calor está com escoamento de um único tipo de fluido. Com isso, as capacidades serão definidas por:\\
+
+\begin{equation}\label{eq42}
+C_{minimo} = \dot{m}_{quente} \times c_{p\,\,quente}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq43}
+C_{maximo} = \dot{m}_{frio} \times c_{p\,\,frio}
+\end{equation}
+\vspace{0.5cm}
+
+Com base nas capacidades térmicas, é possível determinar inicialmente a taxa de troca de calor máxima do trocador, que será dada pela seguinte fórmula:\\
+
+\begin{equation}\label{eq44}
+\dot{Q}_{maximo} = C_{min} \times (T_{Quente\_de\_Entrada} - T_{Fria\_de\_Entrada})
+\end{equation}
+\vspace{0.5cm}
+
+Através das capacidades térmicas, pode-se identificar os casos-limite para cada uma das temperaturas de entrada. Desse modo, obtêm-se as temperaturas limite de saída para as condições do escoamento. Essas dadas pelas seguintes relações:\\
+
+\begin{equation}\label{eq45}
+	T_{Fria\_de\_Saida\_Limite}= T_{Fria\_de\_Entrada} + \frac{\dot{Q}_{maximo}}{C_{maximo}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq46}
+	T_{Quente\_de\_Saida\_Limite}= T_{Fria\_de\_Entrada} - \frac{\dot{Q}_{maximo}}{C_{minimo}}
+\end{equation}
+\vspace{0.5cm}
+
+A partir daqui, é necessária a escolha de um modelo de trocador de calor e corrente para o cálculo da efetividade. A efetividade foi calculada tendo obtido primeiramente o valor do C, que representa a razão entre as capacidades. O épsilon foi obtido utilizando a expressão para um trocador de calor de placas. Para essa fase do projeto, se utilizou os dados do escoamento contra corrente para a análise:
+\pagebreak
+\clearpage
+\newpage
+
+\begin{table}[h]
+	\caption{Dados do Trocador de Calor de Placas Inter. Fluxo Contracorrente}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c | c | c | c | c | c |}
+		\hline
+		Teste & $\dot{m}_{frio}$ & $\dot{m}_{quente}$&Tfria$\_$en& Tfria$\_$sai& Tquente$\_$en& Tquente$\_$sai& Área\\
+		\hline
+		1 & 0,06307 & 0,0088  & 39& 45& 85& 42&0,12\\
+		\hline
+		2 & 0,033 & 0,0075  & 38& 48& 84& 40& 0,12\\
+		\hline
+		3 & 0,05406 & 0,0086 & 41& 48& 86& 42& 0,12\\
+		\hline
+		4 &0,04529 & 0,0075 & 40,5& 48& 84& 41& 0,12\\
+		\hline
+		5 & 0,04803 & 0,0082 & 40& 47& 83& 42& 0,12\\
+		\hline
+		6 & 0,0722 & 0,0095  & 41& 46& 82& 44& 0,12\\
+		\hline
+		7 & 0,03778& 0,0085  & 40& 49& 81& 41& 0,12\\
+		\hline
+		8 & 0,03909 & 0,0072  & 41& 48& 80& 42& 0,12\\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Bancada Experimental
+	\vspace{1cm}
+\end{table}
+
+Com esses dados, foi possível determinar a efetividade do trocador com base nas seguintes relações matemáticas:\\
+
+\begin{equation}\label{eq47}
+	C = \frac{C_{min}}{C_{max}}
+\end{equation}
+\vspace{0.5cm}
+
+Efetividade sendo dada por:\\
+
+\begin{equation}\label{eq48}
+	\epsilon = \frac{1 - e^{-NUT \times (1 - C)}}{1 - C\times e^{-NUT\times(1-C)}}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}\label{eq49}
+	NUT = \frac{U_{C} \times A_{sup}}{C_{min}}
+\end{equation}
+\vspace{0.5cm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=Python,
+	backgroundcolor=\color{white},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{red},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=12pt,                  
+	showspaces=false,                
+	showstringspaces=true,
+	showtabs=false,                  
+	tabsize=12,
+	frame=single
+}
+
+\lstset{style=mystyle}
+\begin{center}
+	\normalsize{Algoritmo 2 - Código EES para obtenção das Efetividades com Base nos Dados De Bancada}
+\end{center}
+\vspace{0.5cm}
+\begin{lstlisting}
+C_min = (m_dot_H*c_pH)*convert(kW;W)
+C_max =(m_dot_C*c_pC)*convert(kW;W)
+Q_dot_max = (C_min*(T_Hin - T_Cin))
+T_CsaidaLimite= T_Cin + (Q_dot_max)/(C_max)
+T_HsaidaLimite= T_Hin - (Q_dot_max)/(C_min)
+C = C_min/C_max
+arg = (epsilon-1)/((epsilon*C)-1)
+epsilon = ((1 - exp(- NTU*(1-C)))/(1 - C*exp(-NTU*(1-C))))
+NTU = (U_C*(A_s))/C_min
+epsilon_% = epsilon*100
+\end{lstlisting}
+\vspace{0.5cm}
+
+Para o terceiro problema, após uma análise de modelos disponíveis, o trocador de calor selecionado para comparação de efetividade foi o de Casco e Tubo. Esse modelo de trocador de calor é muito utilizado na indústria petroquímica pois é capaz de trabalhar em aplicações de alta carga de pressão. O trocador de calor de casco e tubo apresenta alta capacidade de de troca térmica mesmo com redução de dimensão.
+\pagebreak
+\clearpage
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\caption{TROCADOR DE CALOR DO TIPO CASCO E TUBO}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=8cm]{figura8.jpg}
+	\vspace{0.5cm}\\
+	Fonte: https://www.trocadordecalor.com.br/
+\end{figure}
+\vspace{0.5cm}
+
+Com base na bibliografia consultada, a efetividade do modelo casco e tubo, mantendo o escoamento contracorrente, é determinado pela seguinte relação matemática:\\
+
+\begin{equation}\label{eq50}
+	\epsilon_{Casco} = 2 \times \left\{  \left[ 1 +  C + \sqrt{1 + C^2}    \right] \times \left[ \frac{1 + e^{-NTU \times \sqrt{1 + C^2}}}{1 - e^{-NTU \times \sqrt{1 + C^2}}}\right] \right\}^{-1}
+\end{equation}
+\vspace{0.5cm}
+
+A capacitância térmica (Equação 46) já vista anteriormente será o mesmo. O NTU para esse modelo de trocador de calor terá como base a área de troca, igual a equação 48:\\
+
+\begin{equation}\label{eq51}
+NTU = \frac{U_{c} \times A_{s}}{C_{min}}
+\end{equation}
+\vspace{0.5cm}
+
+Para se obter valores melhores de efetividade para o trocador de calor de casco e tubo, pode-se admitir fluidos de calor específico mais aproximados ou também realizar ajustes nas vazões do fluido de maior calor específico, o valor para a taxa de trocar de calor real será maior e consequentemente irá se obter um valor melhor para a eficiência.\\
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=Python,
+	backgroundcolor=\color{white},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{red},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=12pt,                  
+	showspaces=false,                
+	showstringspaces=true,
+	showtabs=false,                  
+	tabsize=1,
+	frame=single
+}
+
+\lstset{style=mystyle}
+\begin{center}
+	\normalsize{Algoritmo 3 - Código EES para obtenção das Efetividades do Trocador de Calor Casco e Tubo}
+\end{center}
+\vspace{0.5cm}
+\begin{lstlisting}
+C = C_min/C_max
+epsilon = 2*(((1 + C + sqrt(1 + C^2))*((1 + exp( - NTU*sqrt(1 + C^2))))/(1 - exp( - NTU*sqrt(1 + C^2))))^(-1))
+NTU = (U_C*(A_s))/C_min
+epsilon_Q = (Q_dot_C/Q_dot_max)*100
+\end{lstlisting}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+\subsection{\large SIMULAÇÃO CFD}
+\vspace{0.5cm}
+ A fim de ilustrar o funcionamento de um evaporador de placas, foi desenvolvido um modelo de evaporador de placas gaxetado tendo-se como referência os produtos da empresa ALFALAVAL foi desenvolvido através do software SOLIDWORKS. 
+ 
+ O modelo montado consiste de duas placas diferentes, a primeira onde não ocorre escoamento do fluido na área da placa, havendo apenas a vazão do fluido nas regiões tubulares e o segundo onde as gaxetas estão organizadas de forma a causar um escoamento vertical pela placa, estas são montadas apropriadamente baseada no fluido que irá escoar em sua superfície.
+ 
+ 
+Uma simulação simplificada foi realizada no software ANSYS-Fluent a partir do modelo obtido, da montagem foi extraído o volume de fluido quente e frio através da ferramenta de extração de volume do software SpaceClaim. Este volume corresponde ao espaço por onde o fluido irá percorrer entre as placas gaxetadas. Por fim uma malha simples foi desenvolvida para todo o modelo. No ambiente de simulação do Fluent foram inseridas as seguintes considerações e condições de contorno:
+
+\begin{itemize}
+	\item Volume do fluido quente: Amonia-Vapor;
+	\item Volume do fluido frio: R134a;
+	\item Material das placas gaxetadas: Aluminio;
+	\item Temperatura de entrada do fluido frio: 312,15K;
+	\item Temperatura de entrada do fluido quente: 358,15K;
+	\item Velocidade Inlet-fluido frio: 9,316m/s;
+	\item Velocidade Inlet-fluido quente: 7,867m/s;
+	\item Outlet fluido frio: Outflow;
+	\item Modelo k-epsilon de turbulência.
+\end{itemize}
+\vspace{0.5cm}
+\begin{figure}[h]
+	\centering
+	\caption{CONFIGURAÇÃO DE MONTAGEM PARA ESCOAMENTO CONTRAFLUXO}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=12cm]{TROCADOR.jpeg}
+	\vspace{0.5cm}\\
+	Fonte: Fábio Henrique
+\end{figure}
+\vspace{0.5cm}
+\pagebreak
+\clearpage
+\newpage
+\section{\large RESULTADOS}
+\vspace{0.5cm}
+
+Com base nos dados estipulados pela bancada e pelos resultados do EES, foi possível determinar os seguintes coeficientes globais para os 8 casos:\\
+
+\begin{table}[h]
+	\caption{Resultados do Trocador de Calor de Placas Inter. Fluxo Paralelo - APENAS AMÔNIA}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c |}
+		\hline
+		Teste & $U_{frio}$ & $U_{quente}$\\
+		\hline
+		1 & 302,7 & -302,6 \\
+		\hline
+		2 & 374,4 & -374,4 \\
+		\hline
+		3 & 365,2 & -365,6 \\
+		\hline
+		4 & 276,4 & -276,4\\
+		\hline
+		5 & 394,5 & -364,4\\
+		\hline
+		6 & 271 & -270,9 \\
+		\hline
+		7 & 455,4& -455,5 \\
+		\hline
+		8 & 615,4 & -615,4 \\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+\pagebreak
+\clearpage
+\newpage
+
+\begin{table}[h]
+	\caption{Resultados do Trocador de Calor de Placas Inter. Fluxo Contracorrente - APENAS AMÔNIA}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c |}
+		\hline
+		Teste & $U_{frio}$ & $U_{quente}$\\
+		\hline
+		1 & 838,9 & -838,9 \\
+		\hline
+		2 & 888,4 & -888,4 \\
+		\hline
+		3 & 1178 & -1786 \\
+		\hline
+		4 & 1296 & -1296\\
+		\hline
+		5 & 905,1 & -905,1\\
+		\hline
+		6 & 860,8 & -860,8 \\
+		\hline
+		7 & 1204& -1204 \\
+		\hline
+		8 & 968,7 & -968,7 \\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+
+Para a segunda análise, a de efetividade, com base nos dados iniciais, se obteve as seguintes efetividades:
+\pagebreak
+\clearpage
+\newpage
+
+\begin{table}[h]
+	\caption{Resultados do Trocador de Calor de Placas Inter. Fluxo Contracorrente - APENAS AMÔNIA}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c | c |}
+		\hline
+		Teste & $\epsilon$ em $\%$& $\epsilon_{Q}$ em $\%$& $\epsilon_{Check}$ em $\%$ \\
+		\hline
+		1 &93,48  & 93,48 & 95,07 \\
+		\hline
+		2 &95,65 & 95,65 & 97,63 \\
+		\hline
+		3 &97,78 & 97,78 & 98,68\\
+		\hline
+		4 &98,85 & 98,84 & 99,44\\
+		\hline
+		5 &95,35 & 95,35 & 96,94\\
+		\hline
+		6 &92,68 & 92,68 & 94,28\\
+		\hline
+		7 &97,56 & 97,57 & 98,86\\
+		\hline
+		8 &97,44 & 97,45 & 98,57\\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+
+\pagebreak
+\clearpage
+\newpage
+\begin{table}[h]
+	\caption{Resultados do Trocador de Calor de Placas Inter. Fluxo Contracorrente - AMÔNIA E R134-A}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c | c | c |}
+	\hline
+	Teste & $\epsilon$ em $\%$& $\epsilon_{Q}$ em $\%$& $\epsilon_{Check}$ em $\%$ \\
+	\hline
+	1 &64,13  & 36,9& 69,53 \\
+	\hline
+	2 &67,24 & 37,76 & 77,16 \\
+	\hline
+	3 &74,08 & 38,6 & 81,87\\
+	\hline
+	4 &79,24& 39,02 & 87,06\\
+	\hline
+	5 &67,58& 37,64 & 74,74\\
+	\hline
+	6 &62,76 & 36,59 & 67,68\\
+	\hline
+	7 &72,55 & 38,51& 82,89\\
+	\hline
+	8 &73,06& 38,47 & 81,31\\
+	\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+
+\pagebreak
+\clearpage
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\caption{COMPARATIVO DE EFETIVIDADE DE TROCADOR DE CALOR - APENAS AMÔNIA X AMÔNIA/R134A}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=8cm]{GRAFICO_8.png}
+	\vspace{0.5cm}\\
+	Fonte: Autores
+\end{figure}
+\vspace{0.5cm}
+
+\begin{equation}
+	\tcbhighmath[boxrule=2pt,arc=1pt,colback=blue!10!white,colframe=black,
+	drop fuzzy shadow=red]{\epsilon\,\,\,\,MEDIO\,\,\,\,\,COM\,\,\,\,APENAS\,\,\,\,AMONIA = 96,15\%}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}
+	\tcbhighmath[boxrule=2pt,arc=1pt,colback=blue!10!red,colframe=black,
+	drop fuzzy shadow=red]{\epsilon\,\,\,\,MEDIO\,\,\,\,COM\,\,\,\,R134\_A\,\,\,\,E\,\,\,\,AMONIA = 77,85\%}
+\end{equation}
+\vspace{0.5cm}
+
+Para a comparação entre o trocador de calor casco e tubo e o trocador de calor de placas paralelas em termos de efetividade, se considerou duas situações onde o calor específico do R134A apresenta valores de 1 e 1,5 aproximadamente. Mantendo o escoamento contracorrente, se obteve as seguintes quantidades de efetividade:
+\pagebreak
+\clearpage
+\newpage
+\begin{table}
+	\caption{Casco e Tubo - CP QUENTE - 1,5}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		Teste & EFETIVIDADE  \\
+		\hline
+		1 & 46,24 \\
+		\hline
+		2 & 50,71 \\
+		\hline
+		3 & 58,53  \\
+		\hline
+		4 & 63,65 \\
+		\hline
+		5 & 50,35 \\
+		\hline
+		6 & 44,718\\
+		\hline
+		7 & 56,74\\
+		\hline
+		8 & 56,68\\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+\vspace{1cm}
+\begin{table}
+	\caption{Casco e Tubo - CP QUENTE - 1}
+	\vspace{0.8cm}
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		Teste & EFETIVIDADE  \\
+		\hline
+		1 & 31,59 \\
+		\hline
+		2 & 35,91 \\
+		\hline
+		3 & 41,96  \\
+		\hline
+		4 & 47,08 \\
+		\hline
+		5 & 35,06 \\
+		\hline
+		6 & 30,38\\
+		\hline
+		7 & 40,96\\
+		\hline
+		8 & 40,61\\
+		\hline
+	\end{tabular}\\
+	\vspace{0.8cm}
+	Fonte: Autores
+	\vspace{1cm}
+\end{table}
+
+\pagebreak
+\clearpage
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\caption{COMPARATIVO DE EFETIVIDADE DE TROCADOR DE CALOR - PLACAS INTERME X CASCO E TUBO}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=8cm]{GRAFICO_9.png}
+	\vspace{0.5cm}\\
+	Fonte: Autores
+\end{figure}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+\begin{figure}[h]
+	\centering
+	\caption{COMPARATIVO DE TEMPERATURAS DE SAÍDA LIMITES DE TODOS OS CASOS CONTRACORRENTE - FRIO}
+	\vspace{0.5cm}
+	\includegraphics[width=15cm,height=12cm]{GRAFICO_10.png}
+	\vspace{0.5cm}\\
+	Fonte: Autores
+\end{figure}
+\vspace{0.5cm}
+Foram observadas as temperaturas limites de saída do fluido frio, considerando que, os casos que apresentassem valores mais próximos à temperatura de entrada do fluido quente, fossem sistemas bem parametrizados, já que denotaria maior intervalo para que houvesse o resfriamento do fluido quente. Para a analise do trocador de placas intermediárias de escoamento contracorrente  tendo apenas a amônia como fluido de troca de calor, pôde-se observar uma alta eficiência para a efetividade geral, tendo sido obtida por meio da equação:
+
+ \begin{equation}
+ \tcbhighmath[boxrule=2pt,arc=1pt,colback=blue!10!white,colframe=black,
+ drop fuzzy shadow=red]{\frac{Q_{dot}}{Q_{max}}}
+ \end{equation}
+ \vspace{0.5cm}
+ 
+ Apesar disto, seu sistema resulta em baixos valores para a temperatura limite de saída para o fluido frio, denotando que mesmo com uma alta eficiência devido a razão entre as taxas de transferência, o sistema possui um pequena variação da temperatura do fluido frio. No caso em que foi utilizado o R134a como fluido frio e a amônia como o fluido quente no trocador de calor de placas em escoamento contracorrente pôde-se constatar uma diminuição dos valores obtidos para a efetividade, resultado da diferença entre o calor específico dos fluidos enquanto os parâmetros da vazão e temperatura foram mantidos, no entanto, este caso apresentou o melhor retorno para as temperaturas limite de saída do fluido frio para o trocador de calor de placas, como para este caso o fluido frio apresenta menor calor específico e consequentemente maior facilidade de sofrer mudanças de temperatura, obtêm-se valores para a razão de capacidades térmicas cada vez mais próximos de 1, que é quando os casos limite para as mudanças de temperatura ocorre.
+
+\pagebreak
+\clearpage
+\newpage
+
+Após o desenvolvimento das análises no EES, foi feita a simulação no ANSYS e se obtiveram valores de velocidades de escoamento e distribuições de temperatura em torno do trocador de calor:\\
+
+\begin{figure}[h]
+	\centering
+	\caption{DISTRIBUIÇÃO DE TEMPERATURA NO TROCADOR DE CALOR  ANSYS FLUENT}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=15cm]{CFD1.jpeg}
+	\vspace{0.5cm}\\
+	Fonte: Fábio Henrique
+\end{figure}
+\pagebreak
+\clearpage
+\newpage
+\begin{figure}[h]
+	\centering
+	\caption{PATHLINES DE TEMPERATURA NA REGIÃO DO FLUIDO ANSYS-FLUENT}
+	\vspace{0.5cm}
+	\includegraphics[width=12cm,height=15cm]{FIGURA13.jpeg}
+	\vspace{0.5cm}\\
+	Fonte: Fábio Henrique
+\end{figure}
+\pagebreak
+\clearpage
+\newpage
+Pôde-se observar a influência do escoamento contracorrente nos contornos de temperatura resultantes na simulação, valores plausíveis para as temperaturas de saída foram obtidas, respeitando as condições de caso limite impostas pelas propriedades térmicas dos fluídos utilizados.\\
+
+\begin{equation}
+\tcbhighmath[boxrule=2pt,arc=1pt,colback=green!10!white,colframe=black,
+drop fuzzy shadow=red]{Velocidade\,\,\,\,Frio\,\, = 5.577[m/s]}
+\end{equation}
+\vspace{0.5cm}
+
+\begin{equation}
+\tcbhighmath[boxrule=2pt,arc=1pt,colback=green!10!red,colframe=black,
+drop fuzzy shadow=red]{Velocidade\,\,\,\,Quente\,\, = 4.70 [9m/s]}
+\end{equation}
+\vspace{0.5cm}
+\pagebreak
+\clearpage
+\newpage
+\section{\large CONCLUSÕES}
+\vspace{0.5cm}
+
+Com a conclusão do devido projeto, foi possível realizar uma análise real de um modelo de trocador do tipo de placas intermediárias, onde se aplicou na prática todos os conhecimentos obtidos nas disciplinas de Transferência de Calor I e II. 
+
+Tomando em conta os vários pontos análisados como os valores de coeficiente global da atividade 1, das efetividades da atividade 2 e o comparativo com outro modelo de trocador de calor, o de casco e tubo, na atividade 3, pode-se dizer que o trocador de calor de placas apresenta-se como uma solução bastante viável levando em consideração os valores de custos comparados ao de um modelo de casco e tubo.
+
+Levando-se em consideração o valor da efetividade teórica, o trocador de placas com escoamento contracorrente apenas com a amônia é o caso que representa uma melhor taxa troca de calor impactando positivamente em custos energéticos. Conclui-se então que o trocador de calor de placas intermediárias apresentou uma performace descente sendo uma solução para projetos de sistemas térmicos.
+
+\pagebreak
+\clearpage
+\newpage
+
+\section*{\large REFERÊNCIAS}
+\vspace{0.5cm}
+\addcontentsline{toc}{section}{\large REFERÊNCIAS}
+
+\textbf{MALISKA}, Clovis. Transferência de Calor e Mecânica dos Fluídos
+Computacional. 2. ed. Brasil: LTC, 2004. ISBN 8521613962\\
+
+\textbf{ÇENGEL}, Yunus. Heat and Mass Transfer: Fundamentals and Applications. 3. ed. São Paulo: McGraw-Hill Education, 2002. 800 p.\\
+
+\textbf{SIMÕES}, José R Simões Moreira. PME – 2361 Processos de Transferência de Calor. Escola Politécnica da Universidade de São Paulo. 2005\\
+\pagebreak
+\clearpage
+\newpage
+
+\section*{\large ANEXOS}
+\addcontentsline{toc}{section}{\large ANEXOS}
+\vspace{0.5cm}
+
+\large ANEXO - 1 - ALGORITMO EES
+\vspace{0.5cm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=Python,
+	backgroundcolor=\color{white},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{red},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=12pt,                  
+	showspaces=false,                
+	showstringspaces=true,
+	showtabs=false,                  
+	tabsize=12,
+	frame=single
+}
+
+\begin{lstlisting}
+c_pC = 1,5
+c_pH = 3,8
+A_s = 0,12
+(D^2) = ((4*A_s)/pi)
+Q_dot_C = (m_dot_C*c_pC*(T_Cout - T_Cin))*convert(kJ/s;W)
+Q_dot_H = (m_dot_H*c_pH*(T_Hout - T_Hin))*convert(kJ/s;W)
+DELTAT_1 = (T_Hin - T_Cout)
+DELTAT_2 = (T_Hout - T_Cin)
+DELTAT_m = ((DELTAT_1- DELTAT_2)/ln(DELTAT_1/DELTAT_2))
+U_C = (Q_dot_C/(A_s*DELTAT_m))
+U_H = (Q_dot_H/(A_s*DELTAT_m))
+C_min = (m_dot_H*c_pH)*convert(kW;W)
+C_max =(m_dot_C*c_pC)*convert(kW;W)
+Q_dot_max = (C_min*(T_Hin - T_Cin))
+T_CsaidaLimite= T_Cin + (Q_dot_max)/(C_max)
+T_HsaidaLimite= T_Hin - (Q_dot_max)/(C_min)
+C = C_min/C_max
+arg = (epsilon-1)/((epsilon*C)-1)
+epsilon = ((1 - exp(- NTU*(1-C)))/(1 - C*exp(-NTU*(1-C))))
+NTU = (U_C*(A_s))/C_min
+epsilon_% = epsilon*100
+epsilon_Q = (Q_dot_C/Q_dot_max)*100
+\end{lstlisting}
+\vspace{0.5cm}
+
+\pagebreak
+\clearpage
+\newpage
+\large ANEXO - 2 - PLACA ESCOAMENTO VERTICAL FLUIDO FRIO
+\vspace{0.5cm}
+\begin{figure}[h]
+	\centering
+\includegraphics[width=14cm,height=9cm]{CADESCVER3.jpeg}
+\end{figure}\\
+\large ANEXO - 3 - PLACA ESCOAMENTO VERTICAL SEM FLUXO
+\vspace{0.5cm}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm,height=9cm]{CADESCVER2.jpeg}
+\end{figure}
+\pagebreak
+\clearpage
+\newpage
+\large ANEXO - 4 - PLACA ESCOAMENTO VERTICAL FLUIDO QUENTE
+\vspace{0.5cm}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm,height=9cm]{CADESCVER2.jpeg}
+\end{figure}
+\pagebreak
+\clearpage
+\newpage
+\large ANEXO - 6 - EXTRAÇÃO DE VOLUME - FLUIDO QUENTE EM DESTAQUE
+\vspace{0.5cm}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm,height=10cm]{ANEXO6.jpeg}
+\end{figure}
+\pagebreak
+\clearpage
+\newpage
+\end{flushright}	
+\end{document}
+
